@@ -4,6 +4,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
+const categoryController = require("./controllers/categoryController");
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -24,6 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 // routes
+app.post("/categories", categoryController.createCategory);
 
 // error handling
 app.use((err, req, res, next) => {
