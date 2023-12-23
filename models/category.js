@@ -2,46 +2,23 @@ const mongoose = require("mongoose");
 
 const categorySchema = new mongoose.Schema({
   name: {
-    en: String,
+    type: String,
+    required: true,
   },
-  parentName: String,
-  description: {
-    en: String,
+  slug: {
+    type: String,
+    required: true, 
   },
-  status: String,
-  children: [
-    {
-      name: {
-        en: String,
-      },
-      parentId: Boolean,
-      parentName: String,
-      description: {
-        en: String,
-      },
-
-      imageUrl: {
-        type: String,
-      },
-
-      status: String,
-      children: [
-        {
-          name: {
-            en: String,
-          },
-          parentId: Boolean,
-          parentName: String,
-          description: {
-            en: String,
-          },
-          icon: String,
-          status: String,
-          children: [],
-        },
-      ],
-    },
-  ],
+  description: String,
+  status: Number,
+  thumb: {
+    type: String,
+    required: true,
+  },
+  cover: {
+    type: String,
+    required: true,
+  },
 });
 
 const Category = mongoose.model("Category", categorySchema);
