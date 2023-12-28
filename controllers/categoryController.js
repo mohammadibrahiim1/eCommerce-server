@@ -1,4 +1,4 @@
-const Category = require("../models/category");
+const Category = require("../models/product");
 
 const createCategory = async (req, res) => {
   const response = await Category.create(req.body);

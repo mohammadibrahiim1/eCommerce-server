@@ -9,9 +9,6 @@ const colors = require("colors");
 const port = process.env.PORT || 5000;
 
 const categoryRouter = require("./routes/category");
-// const { dbConnect } = require("./utils/db.Connect");
-
-// dbConnect();
 
 // connect to mongodb
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.wuwpwwx.mongodb.net/?retryWrites=true&w=majority`;
@@ -22,7 +19,7 @@ mongoose
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
   })
-  .then(() => console.log("Mongodb connected successfully".cyan))
+  .then(() => console.log("Mongodb database connected successfully".cyan.bold))
   .catch((err) => console.error(err));
 
 //  middlewares
