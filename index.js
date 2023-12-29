@@ -9,6 +9,7 @@ const colors = require("colors");
 const port = process.env.PORT || 5000;
 
 const categoryRouter = require("./routes/category");
+const Product = require("./models/product");
 
 // connect to mongodb
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.wuwpwwx.mongodb.net/?retryWrites=true&w=majority`;
@@ -26,13 +27,32 @@ mongoose
 app.use(express.json());
 app.use(cors());
 
-// routes
-app.use("/api/v1", categoryRouter);
-
 // error handling
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).send("Internal server error");
+});
+
+// post product data to mongodb database
+app.post("/api/v1/product", async (req, res, next) => {
+  try {
+    const product = new Product(req.body);
+    const result = await product.save();
+
+    result.logger();
+    res.status(200).json({
+      status: "success",
+      message: "Data inserted successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Data is not inserted",
+      error: error.message,
+    });
+    console.log(error);
+  }
 });
 
 app.get("/", (req, res) => {
