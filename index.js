@@ -8,7 +8,6 @@ const colors = require("colors");
 
 const port = process.env.PORT || 5000;
 
-const categoryRouter = require("./routes/category");
 const Product = require("./models/product");
 
 // connect to mongodb
@@ -49,6 +48,24 @@ app.post("/api/v1/product", async (req, res, next) => {
     res.status(400).json({
       status: "failed",
       message: "Data is not inserted",
+      error: error.message,
+    });
+    console.log(error);
+  }
+});
+
+app.get("/api/v1/product", async (req, res) => {
+  try {
+    const products = await Product.find({});
+    res.status(200).json({
+      status: "success",
+      message: "Get data successfully",
+      data: products,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Can't get data",
       error: error.message,
     });
     console.log(error);
