@@ -56,7 +56,10 @@ app.post("/api/v1/product", async (req, res, next) => {
 
 app.get("/api/v1/product", async (req, res) => {
   try {
-    const products = await Product.find({});
+    const products = await Product.where("name")
+      .equals(/\w/)
+      .where("quantity")
+      .gt(100);
     res.status(200).json({
       status: "success",
       message: "Get data successfully",
