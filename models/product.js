@@ -1,5 +1,16 @@
 const mongoose = require("mongoose");
 
+const specSchema = new mongoose.Schema({
+  processor: String,
+  motherboard: String,
+  ram: String,
+  graphics: String,
+  storage: String,
+  casing: String,
+  psu: String,
+  cooler: String,
+});
+
 const productSchema = new mongoose.Schema(
   {
     model: {
@@ -74,48 +85,7 @@ const productSchema = new mongoose.Schema(
     //     _id: mongoose.Schema.Types.ObjectId,
     //   },
     // ],
-    spec: [
-      {
-        processor: {
-          type: String,
-        },
-      },
-      {
-        motherboard: {
-          type: String,
-        },
-      },
-      {
-        ram: {
-          type: String,
-        },
-      },
-      {
-        graphics: {
-          type: String,
-        },
-      },
-      {
-        storage: {
-          type: String,
-        },
-      },
-      {
-        casing: {
-          type: String,
-        },
-      },
-      {
-        psu: {
-          type: String,
-        },
-      },
-      {
-        cooler: {
-          type: String,
-        },
-      },
-    ],
+    spec: [specSchema],
 
     // createdAt: {
     //   type: Date,
@@ -136,7 +106,7 @@ productSchema.pre("save", function (next) {
   console.log("Before saving data");
 
   // this =>
-  if (this.quantity == 0) {
+  if (this.rating == 0) {
     this.status = "out-of-stock";
   }
   next();

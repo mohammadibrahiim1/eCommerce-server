@@ -35,10 +35,20 @@ app.use((err, req, res, next) => {
 // post product data to mongodb database
 app.post("/api/v1/product", async (req, res, next) => {
   try {
-    const product = new Product(req.body);
-    const result = await product.save();
+    const result = await Product.insertMany(req.body);
+    // const result = await product.save();
 
-    result.logger();
+    // Check if result is an object with a logger function
+    if (typeof result === "object" && typeof result.logger === "function") {
+      // Call the logger function
+      result.logger();
+    } else {
+      console.error(
+        "result.logger is not a function or result is not an object with a logger function"
+      );
+    }
+
+    // await result.logger();
     res.status(200).json({
       status: "success",
       message: "Data inserted successfully",
@@ -56,10 +66,12 @@ app.post("/api/v1/product", async (req, res, next) => {
 
 app.get("/api/v1/product", async (req, res) => {
   try {
-    const products = await Product.where("name")
-      .equals(/\w/)
-      .where("quantity")
-      .gt(100);
+    const query = {};
+    const products = await Product.find(query);
+    // .where("name")
+    //   .equals(/\w/)
+    //   .where("quantity")
+    //   .gt(100);
     res.status(200).json({
       status: "success",
       message: "Get data successfully",
