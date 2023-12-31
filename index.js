@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
 });
 
 // post product data to mongodb database
-app.post("/api/v1/product", async (req, res, next) => {
+app.post("/api/v1/products", async (req, res, next) => {
   try {
     const result = await Product.insertMany(req.body);
     // const result = await product.save();
@@ -64,7 +64,7 @@ app.post("/api/v1/product", async (req, res, next) => {
   }
 });
 
-app.get("/api/v1/product", async (req, res) => {
+app.get("/api/v1/products", async (req, res) => {
   try {
     const query = {};
     const products = await Product.find(query);
