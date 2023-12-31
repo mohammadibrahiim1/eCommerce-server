@@ -2,32 +2,37 @@ const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
   {
-    name: {
+    model: {
       type: String,
       required: [true, "Please provide a name for this product.*"],
       trim: true,
-      unique: [true, "Name must be unique"],
-      minLength: [3, "name must be at least 3 characters"],
-      maxLength: [100, "Name is too large"],
+      unique: [true, "Model must be unique"],
+      minLength: [3, "Model must be at least 3 characters"],
+      maxLength: [100, "Model is too large"],
     },
-    description: {
+    image: {
       type: String,
       required: true,
     },
+    keyFeature: {
+      type: [String],
+      required: true,
+    },
+
     price: {
       type: Number,
       required: true,
       min: [0, "Price can't be negative"],
     },
-    unit: {
-      type: String,
-      required: true,
-      enum: {
-        values: ["kg", "litre", "pcs"],
-        message: "Unit value can't be {VALUE}, must be kg/litre/pcs",
-      },
-    },
-    quantity: {
+    // unit: {
+    //   type: String,
+    //   required: true,
+    //   enum: {
+    //     values: ["kg", "litre", "pcs"],
+    //     message: "Unit value can't be {VALUE}, must be kg/litre/pcs",
+    //   },
+    // },
+    rating: {
       type: Number,
       required: true,
       min: [0, "Quantity can't be negative"],
@@ -41,7 +46,7 @@ const productSchema = new mongoose.Schema(
           }
         },
 
-        message: "Quantity must be an integer",
+        message: "Rating must be an integer",
       },
     },
 
@@ -52,17 +57,63 @@ const productSchema = new mongoose.Schema(
         message: "Status can't be {VALUE}",
       },
     },
-    supplier: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: `Supplier`,
+    // supplier: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: `Supplier`,
+    // },
+    category: {
+      type: String,
+      required: true,
     },
-    categories: [
+    // categories: [
+    //   {
+    //     name: {
+    //       type: String,
+    //       required: true,
+    //     },
+    //     _id: mongoose.Schema.Types.ObjectId,
+    //   },
+    // ],
+    spec: [
       {
-        name: {
+        processor: {
           type: String,
-          required: true,
         },
-        _id: mongoose.Schema.Types.ObjectId,
+      },
+      {
+        motherboard: {
+          type: String,
+        },
+      },
+      {
+        ram: {
+          type: String,
+        },
+      },
+      {
+        graphics: {
+          type: String,
+        },
+      },
+      {
+        storage: {
+          type: String,
+        },
+      },
+      {
+        casing: {
+          type: String,
+        },
+      },
+      {
+        psu: {
+          type: String,
+        },
+      },
+      {
+        cooler: {
+          type: String,
+        },
       },
     ],
 
