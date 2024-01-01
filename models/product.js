@@ -61,6 +61,13 @@ const productSchema = new mongoose.Schema(
       },
     },
 
+    stock: {
+      type: String,
+    },
+
+    brand: {
+      type: String,
+    },
     status: {
       type: String,
       enum: {
