@@ -65,7 +65,6 @@ app.post("/api/v1/products", async (req, res, next) => {
   }
 });
 
-
 app.post("/api/v1/categories", async (req, res, next) => {
   try {
     const result = await Category.insertMany(req.body);
@@ -97,12 +96,44 @@ app.post("/api/v1/categories", async (req, res, next) => {
   }
 });
 
-
-
 app.get("/api/v1/products", async (req, res) => {
   try {
+    const { category } = req.params;
+
+    if (category) {
+      const filteredItems = await Product.find({ category });
+      res.status(200).json({
+        status: "success",
+        message: "Get data successfully",
+        data: filteredItems,
+      });
+    } else {
+      const query = {};
+      const products = await Product.find(query);
+      // .where("name")
+      //   .equals(/\w/)
+      //   .where("quantity")
+      //   .gt(100);
+      res.status(200).json({
+        status: "success",
+        message: "Get data successfully",
+        data: products,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Can't get data",
+      error: error.message,
+    });
+    console.log(error);
+  }
+});
+
+app.get("/api/v1/categories", async (req, res) => {
+  try {
     const query = {};
-    const products = await Product.find(query);
+    const products = await Category.find(query);
     // .where("name")
     //   .equals(/\w/)
     //   .where("quantity")
