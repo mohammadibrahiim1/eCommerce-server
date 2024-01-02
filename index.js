@@ -98,7 +98,7 @@ app.post("/api/v1/categories", async (req, res, next) => {
 
 app.get("/api/v1/products", async (req, res) => {
   try {
-    const { category } = req.params;
+    const { category } = req.query;
 
     if (category) {
       const filteredItems = await Product.find({ category });
