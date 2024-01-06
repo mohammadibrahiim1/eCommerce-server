@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "category": "desktop",
     "model": "AMD Ryzen 5 5600X Gaming PC",
     "image": "https://live.staticflickr.com/65535/52522584794_4a9898a992_o.jpg",
@@ -37,7 +36,6 @@
     ]
   },
   {
-    "id": 2,
     "model": "Intel 10th Gen Core i3-10100 Gaming PC",
     "category": "desktop",
     "brand": "intel",
@@ -68,7 +66,6 @@
     ]
   },
   {
-    "id": 3,
     "model": "AMD Ryzen 5 3600 Gaming PC",
     "category": "desktop",
     "brand": "asus",
@@ -107,7 +104,6 @@
     ]
   },
   {
-    "id": 4,
     "model": "Gaming PC 10th Gen Core i5-10400f",
     "category": "desktop",
     "brand": "hp",
@@ -140,7 +136,6 @@
     ]
   },
   {
-    "id": 5,
     "model": "Intel 10th Gen Core i7-10700 Gaming PC",
     "category": "desktop",
     "brand": "intel",
@@ -171,7 +166,6 @@
     ]
   },
   {
-    "id": 6,
     "model": "Intel Core i5-11400 11th Gen Gaming PC",
     "category": "desktop",
     "brnad": "intel",
@@ -206,7 +200,6 @@
     ]
   },
   {
-    "id": 7,
     "model": "Intel 11th Gen Core i5-11400f Gaming PC",
     "category": "desktop",
     "brand": "intel",
@@ -246,7 +239,6 @@
     ]
   },
   {
-    "id": 8,
     "model": "AMD Ryzen 7 5800X3D Gaming PC",
     "category": "desktop",
     "image": "https://live.staticflickr.com/65535/52521844332_5f738162d8_o.jpg",
@@ -285,7 +277,7 @@
     "model": "iphone 9",
     "image": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
     "category": "smartphones",
-    "brand": "Apple",
+    "brand": "apple",
     "price": 549,
     "rating": 2,
     "status": "in-stock",
@@ -323,7 +315,7 @@
     "model": "iphone X",
     "image": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
     "category": "smartphones",
-    "brand": "Apple",
+    "brand": "apple",
     "price": 899,
     "rating": 4,
     "status": "in-stock",
@@ -363,7 +355,7 @@
     "model": "Huawei P30",
     "image": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
     "category": "smartphones",
-    "brand": "Huawei",
+    "brand": "huawei",
     "price": 499,
     "rating": 5,
     "status": "in-stock",
@@ -401,9 +393,9 @@
   },
   {
     "model": "MacBook Pro",
-    "image": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+    "image": "https://i.ibb.co/cC2cdgq/Apple-Mac-Book-Pro-M2-Pro-and-M2-Max-hero-230117-jpg-og.jpg",
     "category": "laptops",
-    "brand": "Apple",
+    "brand": "apple",
     "price": 1749,
     "rating": 3,
     "status": "in-stock",
@@ -441,7 +433,7 @@
   },
   {
     "model": "Samsung Galaxy Book",
-    "image": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+    "image": "https://i.ibb.co/CBsNm2Q/galaxy-book-05-500x500.webp",
     "category": "laptops",
     "brand": "samsung",
     "price": 1499,
@@ -475,6 +467,186 @@
       { "casing": "Antec NX420 Mid Tower ARGB Gaming Case" },
       {
         "psu": "Apple GPU,1080p @ 30/60fps FHD,Digital Zoom, Auto Flash, Face detection, Simultaneous HD video and image recording, Touch to focus"
+      },
+      { "cooler": "Gamdias Boreas M1-610 ARGB CPU Cooler" }
+    ]
+  },
+  {
+    "model": "Huawei MateBook X Pro",
+    "image": "https://i.ibb.co/BtL5MqG/huawei-matebook-x-pro-kv.jpg",
+    "category": "laptops",
+    "status": "in-stock",
+    "brand": "huawei",
+    "keyFeature": [
+      "Skin-Soothing Metallic Body",
+      "HUAWEI Real Color FullView Display",
+      "13th Gen Intel®Core™ Processor"
+    ],
+    "rating": 5,
+    "price": "1499",
+    "spec": [
+      {
+        "processor": "13th Gen Intel® Core™ i7-1360P Processor"
+      },
+      {
+        "motherboard": "Intel Core i7, 8th generation"
+      },
+      { "ram": "Corsair Vengeance LPX 8GB DDR4 DRAM 3200MHz RAM" },
+      {
+        "graphics": "Intel® Iris® Xᵉ Graphics"
+      },
+      {
+        "storage": "2 TB / 1 TB NVMe PCIe SSD"
+      },
+      { "casing": "Antec NX420 Mid Tower ARGB Gaming Case" },
+      {
+        "psu": "Antec CUPRUM STRIKE CSK 650W 80 Plus Bronze Power Supply"
+      },
+      { "cooler": "Gamdias Boreas M1-610 ARGB CPU Cooler" }
+    ]
+  },
+  {
+    "model": "Apple Macbook Pro 2018",
+    "image": "https://i.ibb.co/YXzSg5B/sp776-mbp15touch-silver.jpg",
+    "category": "laptops",
+    "brand": "apple",
+    "status": "in-stock",
+    "rating": 4,
+    "price": "3199",
+    "keyFeature": [
+      "15.4-inch (diagonal) LED-backlit display with IPS technology; 2880-by-1800 native resolution at 220 pixels per inch with support for millions of colors",
+      "2.9GHz 6-core Intel Core i9, Turbo Boost up to 4.8GHz, with 12MB shared L3 cache",
+      "32GB of 2400MHz DDR4 memory",
+      "Frequency: 50Hz to 60Hz",
+      "87W USB-C Power Adapter , USB-C Charge Cable (2 m)"
+    ],
+    "spec": [
+      {
+        "processor": "2.2GHz 6-core Intel Core i7, Turbo Boost up to 4.1GHz, with 9MB shared L3 cache"
+      },
+      {
+        "motherboard": "6-core Intel i7, 8th generation"
+      },
+      { "ram": "16GB of 2400MHz DDR4 onboard memory" },
+      {
+        "graphics": "Radeon Pro 555X with 4GB of GDDR5 memory and automatic graphics switching (Intel UHD Graphics 630 Configurable to Radeon Pro 560X with 4GB of GDDR5 memory)"
+      },
+      {
+        "storage": " 256GB SSD (Configurable to 512GB, 1TB, 2TB, or 4TB SSD)  512GB SSD (Configurable to 1TB, 2TB, or 4TB SSD)"
+      },
+      { "casing": "Antec NX420 Mid Tower ARGB Gaming Case" },
+      {
+        "psu": "Antec CUPRUM STRIKE CSK 650W 80 Plus Bronze Power Supply"
+      },
+      { "cooler": "Gamdias Boreas M1-610 ARGB CPU Cooler" }
+    ]
+  },
+  {
+    "model": "Dell XPS 13",
+    "image": "https://i.ibb.co/jMQcf0s/009-Dell-XPS.webp",
+    "category": "laptops",
+    "rating": 5,
+    "brand": "dell",
+    "status": "in-stock",
+    "price": "1199",
+    "keyFeature": [
+      "Dell Technologies recommends Windows 11 Pro for business) Windows 11 Home, English",
+      "13.4, FHD+ 1920x1200, 60Hz, Non-Touch, Anti-Glare, 500 nit, InfinityEdge",
+      "Intel® Killer™ Wi-Fi 6E 1675 (AX211), 2x2, 802.11ax, Bluetooth® wireless card",
+      "45W AC Adapter Type-C",
+      "720p at 30 fps HD RGB camera, 400p at 30 fps IR camera, dual-array microphones"
+    ],
+    "spec": [
+      {
+        "processor": "12th Gen Intel® Core™ i5-1230U (12 MB cache, 10 cores, up to 4.40 GHz Turbo)"
+      },
+      {
+        "motherboard": "12th Gen Intel® Core™ i5-1230U (12 MB cache"
+      },
+      { "ram": "Corsair Vengeance LPX 8GB DDR4 DRAM 3200MHz RAM" },
+      {
+        "graphics": "Intel® Iris® Xe Graphics"
+      },
+      {
+        "storage": "256 GB, PCIe x2 NVMe, SSD integrated"
+      },
+      { "casing": "Sky" },
+      {
+        "psu": "Antec CUPRUM STRIKE CSK 650W 80 Plus Bronze Power Supply"
+      },
+      { "cooler": "Gamdias Boreas M1-610 ARGB CPU Cooler" }
+    ]
+  },
+  {
+    "model": "Asus ZenBook Flip S",
+    "image": "https://i.ibb.co/X72Td41/w800.png",
+    "category": "laptops",
+    "rating": 5,
+    "brand": "asus",
+    "status": "in-stock",
+    "price": "1399",
+    "keyFeature": [
+      "Windows 10 Pro",
+      "13.3” OLED 4K (3840 x 2160) 16:9 slim-bezel NanoEdge touchscreen",
+      "Intel® Killer™ Wi-Fi 6E 1675 (AX211), 2x2, 802.11ax, Bluetooth® wireless card",
+      "IR webcam with Windows Hello support",
+      "Up to 20 hours battery life3",
+      "Intel® WiFi 6 with Gig+ performance (802.11ax)"
+    ],
+    "spec": [
+      {
+        "processor": "Intel® Core™ i7-1165G7 processor"
+      },
+      {
+        "motherboard": "12th Gen Intel® Core™ i5-1230U (12 MB cache"
+      },
+      { "ram": "8 GB / 16 GB 4266 MHz LPDDR4x" },
+      {
+        "graphics": "Intel® Iris™ Plus Graphics, Premium , Intel® UHD Graphics, Premium"
+      },
+      {
+        "storage": "  1 TB PCIe® NVMe™ 3.0 x4 M.2 SSD, 256 GB / 512 GB PCIe® NVMe™ 3.0 x2 M.2 SSD, 512 GB PCIe® NVMe™ 3.0 x2 M.2 SSD with Intel® Optane™ Memory H10"
+      },
+      { "casing": "Sky" },
+      {
+        "psu": "Antec CUPRUM STRIKE CSK 650W 80 Plus Bronze Power Supply"
+      },
+      { "cooler": "Gamdias Boreas M1-610 ARGB CPU Cooler" }
+    ]
+  },
+  {
+    "model": "Samsung Notebook 9",
+    "image": "https://i.ibb.co/M8RHVWC/930-MBE-025-Dynamic6-With-Active-Pen-Silver.webp",
+    "category": "laptops",
+    "rating": 4,
+    "brand": "samsung",
+    "status": "in-stock",
+    "price": "1499",
+    "keyFeature": [
+      "13.3 FHD LED Display (1920 x 1080) with Touch Screen Panel",
+      "Stereo Speakers ( Max 5 W x 2 ) Smart Amp SoundAlive™  Internal Dual Array Digital Mic  720p HD Camera",
+      "802.11ac wave2 2x2 Bluetooth v5.0",
+      "45W AC Adapter Type-C",
+      "Windows 10 Home",
+      "15-inch, Full HD"
+    ],
+    "spec": [
+      {
+        "processor": "8th Gen Intel® Core™ i7 Mobile Processor"
+      },
+      {
+        "motherboard": "Intel® Core™ i7 Processor 8565U (1.80 GHz up to 4.60 GHz 8 MB L3 Cache)"
+      },
+      { "ram": "16 GB LPDDR3 Memory (On BD 16 GB)" },
+      {
+        "graphics": "Intel® UHD Graphics 620"
+      },
+      {
+        "storage": "PCIe,256 GB SSD"
+      },
+      { "casing": "Sky" },
+      {
+        "psu": "Antec CUPRUM STRIKE CSK 650W 80 Plus Bronze Power Supply"
       },
       { "cooler": "Gamdias Boreas M1-610 ARGB CPU Cooler" }
     ]

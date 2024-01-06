@@ -1,0 +1,27 @@
+[
+  {
+    "category": "coconut oil",
+    "name": "Signature coconut oil 100ml",
+    "image": "https://i.ibb.co/znhcnhZ/Coconut-palm-oil.webp",
+    "status": "in-stock",
+    "brand": "signature",
+    "price": 200,
+    "rating": 4,
+    "healthProductSpec": [
+      {
+        "calories": "852"
+      },
+      {
+        "totalFat": "100gm"
+      },
+      { "cholesterol": "0 mg" },
+      {
+        "sodium": "0 gm"
+      },
+      {
+        "totalCarbohydrate ": "0 gm"
+      },
+      { "protein ": "0 gm" }
+    ]
+  }
+]

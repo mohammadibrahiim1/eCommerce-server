@@ -11,6 +11,15 @@ const specSchema = new mongoose.Schema({
   cooler: String,
 });
 
+const oilSpecSchema = new mongoose.Schema({
+  calories: String,
+  totalFat: String,
+  cholesterol: String,
+  sodium: String,
+  totalCarbohydrate: String,
+  protein: String,
+});
+
 const productSchema = new mongoose.Schema(
   {
     model: {
@@ -21,13 +30,20 @@ const productSchema = new mongoose.Schema(
       minLength: [3, "Model must be at least 3 characters"],
       maxLength: [100, "Model is too large"],
     },
+    // name: {
+    //   type: String,
+    //   required: [true, "Please provide a name for this product.*"],
+    //   trim: true,
+    //   unique: [true, "Model must be unique"],
+    //   minLength: [3, "Model must be at least 3 characters"],
+    //   maxLength: [100, "Model is too large"],
+    // },
     image: {
       type: String,
       required: true,
     },
     keyFeature: {
       type: [String],
-      required: true,
     },
 
     price: {
@@ -93,6 +109,7 @@ const productSchema = new mongoose.Schema(
     //   },
     // ],
     spec: [specSchema],
+    // healthProductSpec: [oilSpecSchema],
 
     // createdAt: {
     //   type: Date,

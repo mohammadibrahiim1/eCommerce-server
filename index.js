@@ -65,6 +65,7 @@ app.post("/api/v1/products", async (req, res, next) => {
   }
 });
 
+// post categories data
 app.post("/api/v1/categories", async (req, res, next) => {
   try {
     const result = await Category.insertMany(req.body);
@@ -96,6 +97,7 @@ app.post("/api/v1/categories", async (req, res, next) => {
   }
 });
 
+// get products by category and when there is no category get all productsF
 app.get("/api/v1/products", async (req, res) => {
   try {
     const { category } = req.query;
@@ -130,6 +132,7 @@ app.get("/api/v1/products", async (req, res) => {
   }
 });
 
+// get all categories
 app.get("/api/v1/categories", async (req, res) => {
   try {
     const query = {};
