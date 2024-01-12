@@ -1,39 +1,55 @@
 const { mongoose } = require("mongoose");
 
-const subCategory = new mongoose.Schema({
+const childSubCategory = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  icon: { type: String },
 });
-
 const childCategory = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  description: {
-    type: String,
-  },
-  icon: {
-    type: String,
-  },
-  children: [subCategory],
+
+  subCategories: [childSubCategory],
 });
+
+const subCategory = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+
+  subCategories: [childCategory],
+});
+
+// const childCategory = new mongoose.Schema({
+//   name: {
+//     type: String,
+//     required: true,
+//   },
+//   parentId: {
+//     type: String,
+//   },
+//   parentName: { type: String },
+//   slug: {
+//     type: String,
+//   },
+
+//   icon: {
+//     type: String,
+//   },
+//   status: { type: String },
+//   children: [subCategory],
+// });
 
 const categorySchema = new mongoose.Schema({
   name: {
     type: String,
+    required: true,
   },
-  parentName: { type: String },
-  description: {
-    type: String,
-  },
-  status: {
-    type: String,
-  },
-  children: [childCategory],
+  subCategories: [subCategory],
 });
 
 // mongoose middlewares for saving data: pre/post

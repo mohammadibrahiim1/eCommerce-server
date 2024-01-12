@@ -1,27 +1,105 @@
 [
   {
-    "category": "coconut oil",
-    "name": "Signature coconut oil 100ml",
-    "image": "https://i.ibb.co/znhcnhZ/Coconut-palm-oil.webp",
-    "status": "in-stock",
-    "brand": "signature",
-    "price": 200,
-    "rating": 4,
-    "healthProductSpec": [
+    "name": "Home",
+    "slug": "This is home category",
+    "status": "show",
+    "children": [
       {
-        "calories": "852"
+        "name": "Health & hygiene",
+        "parentId": "62c827b5a427b63741da9175",
+        "parentName": "Home",
+        "slug": "Health-&-hygiene",
+        "icon": "https://i.ibb.co/zShSTcM/Health-Care-Hygiene.png",
+        "status": "show",
+        "children": [
+          {
+            "name": "Beauty products",
+            "parentId": "632ab2864d87ff2494210a8a",
+            "parentName": "Health-&-hygiene",
+            "slug": "beauty-products",
+            "icon": "",
+            "status": "show",
+            "children": [
+              {
+                "name": "Lotion",
+                "parentId": "632ab2c34d87ff2494210ab2",
+                "parentName": "Beauty products",
+                "slug": "lotion",
+                "icon": "",
+                "status": "show",
+                "children": []
+              },
+              {
+                "_id": "632ab2fd4d87ff2494210ae0",
+                "name": "Shampoo",
+                "parentId": "632ab2c34d87ff2494210ab2",
+                "parentName": "Beauty products",
+                "slug": "shampoo",
+                "icon": "",
+                "status": "show",
+                "children": []
+              },
+              {
+                "_id": "632ab2f84d87ff2494210ad8",
+                "name": "Coconut oil",
+                "parentId": "632ab2c34d87ff2494210ab2",
+                "parentName": "Beauty products",
+                "slug": "coconut-oil",
+                "icon": "",
+                "status": "show",
+                "children": []
+              },
+              {
+                "_id": "632ab2f04d87ff2494210ad0",
+                "name": "Mini pack Shampoo",
+                "parentId": "632ab2c34d87ff2494210ab2",
+                "parentName": "Beauty products",
+                "slug": "mini-pack-shampoo",
+                "icon": "",
+                "status": "show",
+                "children": []
+              }
+            ]
+          }
+        ]
       },
       {
-        "totalFat": "100gm"
-      },
-      { "cholesterol": "0 mg" },
-      {
-        "sodium": "0 gm"
-      },
-      {
-        "totalCarbohydrate ": "0 gm"
-      },
-      { "protein ": "0 gm" }
+        "name": "Electronics",
+        "parentId": "62c827b5a427b63741da9175",
+        "parentName": "Home",
+        "slug": "electronics",
+        "icon": "https://res.cloudinary.com/ahossain/image/upload/v1658340705/category%20icon/carp-fish_paxzrt.png",
+        "status": "show",
+        "children": [
+          {
+            "name": "Desktop",
+            "parentId": "632ab4434d87ff2494210b0e",
+            "parentName": "Electronics",
+            "slug": "desktop",
+            "icon": "",
+            "status": "show",
+            "children": []
+          },
+          {
+            "name": "Laptops",
+            "parentId": "632ab4434d87ff2494210b0e",
+            "parentName": "Electronics",
+            "slug": "laptops",
+            "icon": "",
+            "status": "show",
+            "children": []
+          },
+          {
+            "name": "Smartphones",
+            "parentId": "632ab4434d87ff2494210b0e",
+            "parentName": "Electronics",
+            "slug": "smartphones",
+            "icon": "",
+            "status": "show",
+            "children": []
+          }
+        ]
+      }
     ]
   }
 ]
