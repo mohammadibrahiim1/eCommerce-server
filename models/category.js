@@ -5,9 +5,17 @@ const childSubCategory = new mongoose.Schema({
     type: String,
     required: true,
   },
+  slug: {
+    type: String,
+    required: true,
+  },
 });
 const childCategory = new mongoose.Schema({
   name: {
+    type: String,
+    required: true,
+  },
+  slug: {
     type: String,
     required: true,
   },
@@ -20,32 +28,20 @@ const subCategory = new mongoose.Schema({
     type: String,
     required: true,
   },
+  slug: {
+    type: String,
+    required: true,
+  },
 
   subCategories: [childCategory],
 });
 
-// const childCategory = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     required: true,
-//   },
-//   parentId: {
-//     type: String,
-//   },
-//   parentName: { type: String },
-//   slug: {
-//     type: String,
-//   },
-
-//   icon: {
-//     type: String,
-//   },
-//   status: { type: String },
-//   children: [subCategory],
-// });
-
 const categorySchema = new mongoose.Schema({
   name: {
+    type: String,
+    required: true,
+  },
+  slug: {
     type: String,
     required: true,
   },
