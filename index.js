@@ -16,6 +16,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@clu
 console.log(uri);
 
 mongoose
+
   .connect(uri, {
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
@@ -130,6 +131,14 @@ app.get("/api/v1/products", async (req, res) => {
     });
     console.log(error);
   }
+});
+
+// get products by id
+app.get("/api/v1/products/:id", async (req, res) => {
+  const productId = req.params.id;
+  const productById = await Product.findById(productId);
+  res.send(productById);
+  console.log(productById);
 });
 
 // get all categories
