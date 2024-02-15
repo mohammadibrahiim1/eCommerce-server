@@ -66,6 +66,7 @@ app.post("/api/v1/products", async (req, res, next) => {
   }
 });
 
+
 // post categories data
 app.post("/api/v1/categories", async (req, res, next) => {
   try {
@@ -75,7 +76,7 @@ app.post("/api/v1/categories", async (req, res, next) => {
     // Check if result is an object with a logger function
     if (typeof result === "object" && typeof result.logger === "function") {
       // Call the logger function
-      result.logger();
+      result.logger(); 
     } else {
       console.error(
         "result.logger is not a function or result is not an object with a logger function"

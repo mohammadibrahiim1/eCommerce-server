@@ -1,0 +1,11 @@
+{
+  "editor.fontFamily": "JetBrains Mono Medium",
+  "editor.fontSize": 19,
+  "editor.formatOnSave": true,
+  "editor.lineHeight": 1.2,
+  "editor.fontVariations": false,
+  "files.autoSave": "afterDelay",
+  "editor.wordWrap": "on",
+  "chat.editor.lineHeight": 1.2,
+  "editor.fontLigatures": true
+}
