@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const colors = require("colors");
 
 const port = process.env.PORT || 5000;
@@ -16,7 +16,6 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@clu
 console.log(uri);
 
 mongoose
-
   .connect(uri, {
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
@@ -66,7 +65,6 @@ app.post("/api/v1/products", async (req, res, next) => {
   }
 });
 
-
 // post categories data
 app.post("/api/v1/categories", async (req, res, next) => {
   try {
@@ -76,7 +74,7 @@ app.post("/api/v1/categories", async (req, res, next) => {
     // Check if result is an object with a logger function
     if (typeof result === "object" && typeof result.logger === "function") {
       // Call the logger function
-      result.logger(); 
+      result.logger();
     } else {
       console.error(
         "result.logger is not a function or result is not an object with a logger function"
@@ -99,7 +97,7 @@ app.post("/api/v1/categories", async (req, res, next) => {
   }
 });
 
-// get products by category and when there is no category get all productsF
+// get products by category and when there is no category get all products
 app.get("/api/v1/products", async (req, res) => {
   try {
     const { category } = req.query;
