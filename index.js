@@ -10,6 +10,15 @@ const port = process.env.PORT || 5000;
 
 const Product = require("./models/product");
 const Category = require("./models/category");
+const Brand = require("./models/brand");
+// const Order = require("./models/brand");
+
+// ssl commerz
+const SSLCommerzPayment = require("sslcommerz-lts");
+const Order = require("./models/order");
+const store_id = process.env.STORE_ID;
+const store_passwd = process.env.STORE_PASSWORD;
+const is_live = false; //true for live, false for sandbox
 
 // connect to mongodb
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.wuwpwwx.mongodb.net/?retryWrites=true&w=majority`;
@@ -37,6 +46,38 @@ app.use((err, req, res, next) => {
 app.post("/api/v1/products", async (req, res, next) => {
   try {
     const result = await Product.insertMany(req.body);
+    // const result = await product.save();
+
+    // Check if result is an object with a logger function
+    if (typeof result === "object" && typeof result.logger === "function") {
+      // Call the logger function
+      result.logger();
+    } else {
+      console.error(
+        "result.logger is not a function or result is not an object with a logger function"
+      );
+    }
+
+    // await result.logger();
+    res.status(200).json({
+      status: "success",
+      message: "Data inserted successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Data is not inserted",
+      error: error.message,
+    });
+    console.log(error);
+  }
+});
+
+// post brands data to mongodb database
+app.post("/api/v1/brands", async (req, res, next) => {
+  try {
+    const result = await Brand.insertMany(req.body);
     // const result = await product.save();
 
     // Check if result is an object with a logger function
@@ -96,14 +137,64 @@ app.post("/api/v1/categories", async (req, res, next) => {
     console.log(error);
   }
 });
+// post order data
+app.post("/api/v1/order", async (req, res, next) => {
+  try {
+    const result = await Order.insertMany(req.body);
+    // const result = await product.save();
+
+    // Check if result is an object with a logger function
+    if (typeof result === "object" && typeof result.logger === "function") {
+      // Call the logger function
+      result.logger();
+    } else {
+      console.error(
+        "result.logger is not a function or result is not an object with a logger function"
+      );
+    }
+
+    // await result.logger();
+    res.status(200).json({
+      status: "success",
+      message: "Data inserted successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Data is not inserted",
+      error: error.message,
+    });
+    console.log(error);
+  }
+});
 
 // get products by category and when there is no category get all products
 app.get("/api/v1/products", async (req, res) => {
   try {
-    const { category } = req.query;
+    const { category, brand } = req.query;
 
-    if (category) {
+    // Apply filtering based on query parameters
+
+    if (category && brand) {
+      // both category and brand filters are applied
+      const filteredItems = await Product.find({ category, brand });
+      res.status(200).json({
+        status: "success",
+        message: "Get data successfully",
+        data: filteredItems,
+      });
+    } else if (category) {
+      //  category  filters are applied
       const filteredItems = await Product.find({ category });
+      res.status(200).json({
+        status: "success",
+        message: "Get data successfully",
+        data: filteredItems,
+      });
+    } else if (brand) {
+      //  brands  filters are applied
+      const filteredItems = await Product.find({ brand });
       res.status(200).json({
         status: "success",
         message: "Get data successfully",
@@ -163,6 +254,32 @@ app.get("/api/v1/categories", async (req, res) => {
     console.log(error);
   }
 });
+
+// get all brands
+app.get("/api/v1/brands", async (req, res) => {
+  try {
+    const query = {};
+    const brands = await Brand.find(query);
+    // .where("name")
+    //   .equals(/\w/)
+    //   .where("quantity")
+    //   .gt(100);
+    res.status(200).json({
+      status: "success",
+      message: "Get data successfully",
+      data: brands,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Can't get data",
+      error: error.message,
+    });
+    console.log(error);
+  }
+});
+
+// payment with SSLCommerz
 
 app.get("/", (req, res) => {
   res.send("e-commerce website is working");
