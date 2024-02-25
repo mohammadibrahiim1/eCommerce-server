@@ -16,6 +16,7 @@ const Brand = require("./models/brand");
 // ssl commerz
 const SSLCommerzPayment = require("sslcommerz-lts");
 const Order = require("./models/order");
+const User = require("./models/user");
 const store_id = process.env.STORE_ID;
 const store_passwd = process.env.STORE_PASSWORD;
 const is_live = false; //true for live, false for sandbox
@@ -141,6 +142,50 @@ app.post("/api/v1/categories", async (req, res, next) => {
 app.post("/api/v1/order", async (req, res, next) => {
   try {
     const result = await Order.insertMany(req.body);
+    // const result = await product.save();
+
+    // Check if result is an object with a logger function
+    if (typeof result === "object" && typeof result.logger === "function") {
+      // Call the logger function
+      result.logger();
+    } else {
+      console.error(
+        "result.logger is not a function or result is not an object with a logger function"
+      );
+    }
+
+    // await result.logger();
+    res.status(200).json({
+      status: "success",
+      message: "Data inserted successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Data is not inserted",
+      error: error.message,
+    });
+    console.log(error);
+  }
+});
+
+// post user data
+app.post("/api/v1/user", async (req, res, next) => {
+  try {
+    const users = req.body;
+    const query = {
+      email: users.email,
+    };
+
+    const existingUser = await User.findOne(query);
+
+    if (existingUser) {
+      // if user already exists, return a msg
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    const result = await User.insertMany(users);
     // const result = await product.save();
 
     // Check if result is an object with a logger function
