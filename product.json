@@ -844,5 +844,61 @@
       },
       { "cooler": "Gamdias Boreas M1-610 ARGB CPU Cooler" }
     ]
+  },
+  {
+    "model": "BMTF Electrolyte drink",
+    "net_content": "225ml",
+    "price": 50,
+    "stock": 1569,
+    "status": "in-stock",
+    "rating": 5,
+    "category": "orange",
+    "brand": "bmtf",
+    "image": "https://i.ibb.co/4d7Px4Y/6de771c208046df6dca4af7581328810-jpg-750x750-jpg.webp",
+    "ingreients": [
+      "Sodium Citrate",
+      "Sodium Chloride",
+      "Potassium Chloride",
+      "Sugar",
+      "Citric Acid",
+      "Sodium Benzoate & Potassium Sorbate",
+      "orange flavored"
+    ],
+    "spec": [
+      "Biodegradable Packaging First time in Bangladesh",
+      "Exercise and sports",
+      "Sweating",
+      "Travelling",
+      "Tiredness",
+      "Low blood pressure"
+    ]
+  },
+  {
+    "model": "BMTF Electrolyte drink",
+    "net_content": "225ml",
+    "price": 50,
+    "stock": 1509,
+    "status": "in-stock",
+    "rating": 5,
+    "category": "lemon",
+    "brand": "bmtf",
+    "image": " https://i.ibb.co/gMYXjMG/7dfc146a752cf287e0e405513abc11c8-jpg-750x750-jpg.webp",
+    "ingreients": [
+      "Sodium Citrate",
+      "Sodium Chloride",
+      "Potassium Chloride",
+      "Sugar",
+      "Citric Acid",
+      "Sodium Benzoate & Potassium Sorbate",
+      "lemon flavored"
+    ],
+    "spec": [
+      "Biodegradable Packaging First time in Bangladesh",
+      "Exercise and sports",
+      "Sweating",
+      "Travelling",
+      "Tiredness",
+      "Low blood pressure"
+    ]
   }
 ]

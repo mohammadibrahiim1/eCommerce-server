@@ -176,28 +176,27 @@ app.post("/api/v1/users", async (req, res, next) => {
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({
-        error: "Email is already in use",
+      res.status(404).json({
+        error: "User already exists",
       });
     }
   } catch (error) {
     console.log("Error checking for existing user:", error);
-    return res.status(500).json({
+    res.status(500).json({
       error: "Internal server error",
     });
   }
 
   // create a new user
-  const user = new User({ email });
-  try {
-    await user.insertMany();
-    return res.json({
-      message: "User registered successfully",
+  const user = await User.insertMany({ email });
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      email: user.email,
     });
-  } catch (error) {
-    console.log("Error creating user:", error);
-    return res.status(500).json({
-      error: "Failed to register user",
+  } else {
+    res.status(400).json({
+      error: "Invalid user data",
     });
   }
 
