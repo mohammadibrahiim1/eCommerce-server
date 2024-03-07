@@ -171,8 +171,8 @@ app.post("/api/v1/order", async (req, res, next) => {
 });
 
 // post user data
-app.post("/api/v1/users", async (req, res, next) => {
-  const { email } = req.body;
+app.post("/api/v1/user", async (req, res, next) => {
+  const { displayName, email } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -188,11 +188,12 @@ app.post("/api/v1/users", async (req, res, next) => {
   }
 
   // create a new user
-  const user = await User.insertMany({ email });
-  if (user) {
+  const newUser = await User.insertMany({ displayName, email });
+  if (newUser) {
     res.status(201).json({
-      _id: user._id,
-      email: user.email,
+      _id: newUser._id,
+      displayName: newUser.displayName,
+      email: newUser.email,
     });
   } else {
     res.status(400).json({
