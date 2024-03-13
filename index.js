@@ -172,6 +172,37 @@ app.post("/api/v1/order", async (req, res, next) => {
 
 // post user data
 app.post("/api/v1/user", async (req, res, next) => {
+  // try {
+  //   const { name, email } = req.body;
+  //   // Validation: Check for required fields
+  //   if (!name || !email) {
+  //     return res.status(400).json({ message: "Name and email are required" });
+  //   }
+  //   // check if user already exists
+  //   const existingUser = await User.findOne({ email });
+  //   if (existingUser) {
+  //     return res
+  //       .status(400)
+  //       .json({ message: "User with this email already exists" });
+  //   }
+  //   // user does not exist , proceed with creating new user
+  //   const newUser = await User.insertMany({ name, email });
+  //   if (newUser) {
+  //     res.status(201).json({ message: "User created successfully" }); 
+  //   }
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ message: "Server error" }); 
+  // }
+
+
+
+
+
+
+
+
+
   const { displayName, email } = req.body;
   try {
     const existingUser = await User.findOne({ email });
@@ -198,7 +229,7 @@ app.post("/api/v1/user", async (req, res, next) => {
   } else {
     res.status(400).json({
       error: "Invalid user data",
-    });
+    }); 
   }
 
   // // Send a success message (optional, replace with appropriate email content)

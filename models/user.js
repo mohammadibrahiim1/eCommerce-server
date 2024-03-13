@@ -4,9 +4,12 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   displayName: {
     type: String,
+    required: true,
   },
   email: {
     type: String,
+    required: true,
+    unique: true,
   },
 });
 
