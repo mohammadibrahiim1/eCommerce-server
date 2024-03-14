@@ -228,7 +228,7 @@ app.post("/api/v1/user", async (req, res, next) => {
     });
   } else {
     res.status(400).json({
-      error: "Invalid user data",
+      error: "Invalid user data", 
     }); 
   }
 
