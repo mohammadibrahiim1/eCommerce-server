@@ -170,127 +170,20 @@ app.post("/api/v1/order", async (req, res, next) => {
   }
 });
 
-// post user data
+// post user information
 app.post("/api/v1/user", async (req, res, next) => {
-  // try {
-  //   const { name, email } = req.body;
-  //   // Validation: Check for required fields
-  //   if (!name || !email) {
-  //     return res.status(400).json({ message: "Name and email are required" });
-  //   }
-  //   // check if user already exists
-  //   const existingUser = await User.findOne({ email });
-  //   if (existingUser) {
-  //     return res
-  //       .status(400)
-  //       .json({ message: "User with this email already exists" });
-  //   }
-  //   // user does not exist , proceed with creating new user
-  //   const newUser = await User.insertMany({ name, email });
-  //   if (newUser) {
-  //     res.status(201).json({ message: "User created successfully" }); 
-  //   }
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).json({ message: "Server error" }); 
-  // }
-
-
-
-
-
-
-
-
-
-  const { displayName, email } = req.body;
   try {
+    const { email } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      res.status(404).json({
-        error: "User already exists",
-      });
+      return res.status(409).json({ message: "User already exists" });
     }
+
+    await User.insertMany({ email });
+    res.status(201).json({ message: "user inserted  successfully" });
   } catch (error) {
-    console.log("Error checking for existing user:", error);
-    res.status(500).json({
-      error: "Internal server error",
-    });
+    res.status(500).json({ message: error.message });
   }
-
-  // create a new user
-  const newUser = await User.insertMany({ displayName, email });
-  if (newUser) {
-    res.status(201).json({
-      _id: newUser._id,
-      displayName: newUser.displayName,
-      email: newUser.email,
-    });
-  } else {
-    res.status(400).json({
-      error: "Invalid user data", 
-    }); 
-  }
-
-  // // Send a success message (optional, replace with appropriate email content)
-  // try {
-  //   const transporter = nodemailer.createTransport({
-  //     // Configure your email service provider here
-  //   });
-
-  //   const mailOptions = {
-  //     from: "your_email@example.com",
-  //     to: email,
-  //     subject: "Welcome to your new account!",
-  //     text: "Your account has been successfully created!",
-  //   };
-
-  //   await transporter.sendMail(mailOptions);
-  // } catch (error) {
-  //   console.error("Error sending email:", error);
-  //   // Handle email sending errors gracefully
-  // }
-
-  // try {
-  //   const users = req.body;
-  //   const query = {
-  //     email: users.email,
-  //   };
-
-  //   const existingUser = await User.findOne(query);
-
-  //   if (existingUser) {
-  //     // if user already exists, return a msg
-  //     return res.status(400).json({ message: "User already exists" });
-  //   }
-
-  //   const result = await User.insertMany(users);
-  //   // const result = await product.save();
-  //   // res.status(201).json({ message: "user data saved successfully" });
-  //   // Check if result is an object with a logger function
-  //   if (typeof result === "object" && typeof result.logger === "function") {
-  //     // Call the logger function
-  //     result.logger();
-  //   } else {
-  //     console.error(
-  //       "result.logger is not a function or result is not an object with a logger function"
-  //     );
-  //   }
-
-  //   // await result.logger();
-  //   return res.status(200).json({
-  //     status: "success",
-  //     message: "User registered successfully",
-  //     data: result,
-  //   });
-  // } catch (error) {
-  //   res.status(400).json({
-  //     status: "failed",
-  //     message: "Failed to register user",
-  //     error: error.message,
-  //   });
-  //   console.log(error);
-  // }
 });
 
 // get products by category and when there is no category get all products
