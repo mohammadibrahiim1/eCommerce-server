@@ -1,6 +1,6 @@
 {
-  "editor.fontFamily": "Monolisa",
-  "editor.fontSize": 19,
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontSize": 18,
   "editor.formatOnSave": true,
   "editor.lineHeight": 1.2,
   "editor.fontVariations": false,

@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const { ObjectId } = require("mongodb");
+const SSLCommerzPayment = require("sslcommerz-lts");
 // const jwt = require("jsonwebtoken");
 const colors = require("colors");
 
@@ -11,12 +13,11 @@ const port = process.env.PORT || 5000;
 const Product = require("./models/product");
 const Category = require("./models/category");
 const Brand = require("./models/brand");
-// const Order = require("./models/brand");
-
-// ssl commerz
-const SSLCommerzPayment = require("sslcommerz-lts");
 const Order = require("./models/order");
 const User = require("./models/user");
+// const Order = require("./models/brand");
+
+// ssl commerz payment gateway
 const store_id = process.env.STORE_ID;
 const store_passwd = process.env.STORE_PASSWORD;
 const is_live = false; //true for live, false for sandbox
@@ -82,14 +83,14 @@ app.post("/api/v1/brands", async (req, res, next) => {
     // const result = await product.save();
 
     // Check if result is an object with a logger function
-    if (typeof result === "object" && typeof result.logger === "function") {
-      // Call the logger function
-      result.logger();
-    } else {
-      console.error(
-        "result.logger is not a function or result is not an object with a logger function"
-      );
-    }
+    // if (typeof result === "object" && typeof result.logger === "function") {
+    //   // Call the logger function
+    //   result.logger();
+    // } else {
+    //   console.error(
+    //     "result.logger is not a function or result is not an object with a logger function"
+    //   );
+    // }
 
     // await result.logger();
     res.status(200).json({
@@ -138,35 +139,151 @@ app.post("/api/v1/categories", async (req, res, next) => {
     console.log(error);
   }
 });
-// post order data
-app.post("/api/v1/order", async (req, res, next) => {
-  try {
-    const result = await Order.insertMany(req.body);
-    // const result = await product.save();
 
-    // Check if result is an object with a logger function
-    if (typeof result === "object" && typeof result.logger === "function") {
-      // Call the logger function
-      result.logger();
-    } else {
-      console.error(
-        "result.logger is not a function or result is not an object with a logger function"
-      );
+const trans_id = new ObjectId().toString();
+
+// post order data
+app.post("/api/v1/orders", async (req, res) => {
+  try {
+    // Access order data from request body
+    const newOrders = new Order(req.body);
+
+    // Perform necessary validation and processing of order data
+    if (!newOrders) {
+      return res.status(400).json({ error: "Invalid order data" }); // Handle invalid data
     }
 
-    // await result.logger();
-    res.status(200).json({
-      status: "success",
-      message: "Data inserted successfully",
-      data: result,
-    });
+    // Integrate with a database or service to create the order
+    const savedOrder = await newOrders.save();
+    console.log(savedOrder);
+
+    res.status(201).json(savedOrder); // Send successful response with new order information
   } catch (error) {
-    res.status(400).json({
-      status: "failed",
-      message: "Data is not inserted",
-      error: error.message,
-    });
+    console.error(error);
+
+    return res.status(500).json({ error: "Failed to create order" }); // Handle errors gracefully
+  }
+});
+
+// post order data
+// app.post("/api/v1/orders", async (req, res, next) => {
+//   // console.log(req.body.price);
+
+//   const orderData = req.body;
+
+//   // COD OR CREDIT CARD
+//   const { paymentMethod } = orderData;
+
+//   try {
+//     await new Order.insertMany(orderData);
+
+//     if (paymentMethod === "COD") {
+//       // no payment confirmation needed for cod
+//       res.status(201).json({
+//         message: "Order placed successfully",
+//       });
+//     } else {
+//       // redirect to payment proccessing
+//       const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+//       sslcz.init(data).then((apiResponse) => {
+//         // Redirect the user to payment gateway
+//         let GatewayPageURL = apiResponse.GatewayPageURL;
+//         res.send({ url: GatewayPageURL });
+//         // res.redirect(GatewayPageURL);
+//         console.log("Redirecting to: ", GatewayPageURL);
+//       });
+//     }
+//   } catch (error) {}
+
+//   // const data = {
+//   //   total_amount: order.price,
+//   //   currency: "USD",
+//   //   tran_id: trans_id, // use unique tran_id for each api call
+//   //   success_url: "http://localhost:3030/success",
+//   //   fail_url: "http://localhost:3030/fail",
+//   //   cancel_url: "http://localhost:3030/cancel",
+//   //   ipn_url: "http://localhost:3030/ipn",
+//   //   shipping_method: "Courier",
+//   //   product_name: "Computer.",
+//   //   product_category: "Electronic",
+//   //   product_profile: "general",
+//   //   cus_name: order.userName,
+//   //   cus_email: order.userEmail,
+//   //   cus_add1: order.address,
+//   //   cus_add2: "Dhaka",
+//   //   cus_city: order.city,
+//   //   cus_state: order.state,
+//   //   cus_postcode: order.postalCode,
+//   //   cus_country: "Bangladesh",
+//   //   cus_phone: "01711111111",
+//   //   cus_fax: "01711111111",
+//   //   ship_name: "Customer Name",
+//   //   ship_add1: "Dhaka",
+//   //   ship_add2: "Dhaka",
+//   //   ship_city: "Dhaka",
+//   //   ship_state: "Dhaka",
+//   //   ship_postcode: 1000,
+//   //   ship_country: "Bangladesh",
+//   // };
+
+//   // console.log(data);
+
+//   // const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+//   // sslcz.init(data).then((apiResponse) => {
+//   //   // Redirect the user to payment gateway
+//   //   let GatewayPageURL = apiResponse.GatewayPageURL;
+//   //   res.send({ url: GatewayPageURL });
+//   //   // res.redirect(GatewayPageURL);
+//   //   console.log("Redirecting to: ", GatewayPageURL);
+//   // });
+
+//   // try {
+//   //   const result = await Order.insertMany(req.body);
+//   //   // const result = await product.save();
+
+//   //   // Check if result is an object with a logger function
+//   //   if (typeof result === "object" && typeof result.logger === "function") {
+//   //     // Call the logger function
+//   //     result.logger();
+//   //   } else {
+//   //     console.error(
+//   //       "result.logger is not a function or result is not an object with a logger function"
+//   //     );
+//   //   }
+
+//   //   // await result.logger();
+//   //   res.status(200).json({
+//   //     status: "success",
+//   //     message: "Data inserted successfully",
+//   //     data: result,
+//   //   });
+//   // } catch (error) {
+//   //   res.status(400).json({
+//   //     status: "failed",
+//   //     message: "Data is not inserted",
+//   //     error: error.message,
+//   //   });
+//   //   console.log(error);
+//   // }
+// });
+
+// route for payment confirmation(if using credit card)
+app.get("/api/v1/orders/confirm/:orderId", async (req, res) => {
+  const orderId = req.params.orderId;
+  try {
+    const paymentConfirmation = await confirmPayment(orderData);
+
+    if (paymentConfirmation.success) {
+      await Order.findById(orderId, { status: "paid" });
+      res.status(200).json({ message: "Payment successful!" });
+    } else {
+      res.status(200).json({
+        message: "Payment failed. Please try again.",
+      });
+    }
+  } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
