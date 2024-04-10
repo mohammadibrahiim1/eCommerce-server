@@ -147,6 +147,7 @@ app.post("/api/v1/orders", async (req, res) => {
   try {
     // Access order data from request body
     const newOrders = new Order(req.body);
+    console.log(newOrders);
 
     // Perform necessary validation and processing of order data
     if (!newOrders) {
@@ -155,7 +156,7 @@ app.post("/api/v1/orders", async (req, res) => {
 
     // Integrate with a database or service to create the order
     const savedOrder = await newOrders.save();
-    console.log(savedOrder);
+    // console.log(savedOrder);
     res.status(200).json({
       status: "success",
       message: "Order saved successfully",
