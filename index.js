@@ -8,6 +8,10 @@ const SSLCommerzPayment = require("sslcommerz-lts");
 // const jwt = require("jsonwebtoken");
 const colors = require("colors");
 
+// stripe sk key
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+console.log(stripe);
+
 const port = process.env.PORT || 5000;
 
 const Product = require("./models/product");
@@ -274,22 +278,17 @@ app.post("/api/v1/orders", async (req, res) => {
 // });
 
 // route for payment confirmation(if using credit card)
-app.get("/api/v1/orders/confirm/:orderId", async (req, res) => {
+app.get("/api/v1/orders/:id", async (req, res) => {
   const orderId = req.params.orderId;
   try {
-    const paymentConfirmation = await confirmPayment(orderData);
-
-    if (paymentConfirmation.success) {
-      await Order.findById(orderId, { status: "paid" });
-      res.status(200).json({ message: "Payment successful!" });
-    } else {
-      res.status(200).json({
-        message: "Payment failed. Please try again.",
-      });
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).send("Order no found");
     }
+    res.json(order);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).send("Error retrieving order");
   }
 });
 
@@ -419,7 +418,23 @@ app.get("/api/v1/brands", async (req, res) => {
   }
 });
 
-// payment with SSLCommerz
+// payment with stripe
+// app.post("/create-payment-intent", async (req, res) => {
+//   const { price } = req.body;
+//   const amount = parseInt(price * 100);
+//   console.log(amount);
+
+//   // Create a PaymentIntent with the order amount and currency
+//   const paymentIntent = await stripe.paymentIntents.create({
+//     amount: amount,
+//     currency: "usd",
+//     payment_methods_types: ["card"]
+//   });
+
+//   res.send({
+//     clientSecret: paymentIntent.client_secret,
+//   });
+// });
 
 app.get("/", (req, res) => {
   res.send("e-commerce website is working");

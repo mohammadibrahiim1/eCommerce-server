@@ -23,7 +23,7 @@ const orderSchema = new Schema({
     type: String,
     required: true,
   },
-  state: {
+  country: {
     type: String,
     required: true,
   },
@@ -39,7 +39,7 @@ const orderSchema = new Schema({
     type: Number,
     required: true,
   },
-  itemName: {
+  paymentOption: {
     type: String,
     required: true,
   },
