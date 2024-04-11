@@ -278,18 +278,35 @@ app.post("/api/v1/orders", async (req, res) => {
 // });
 
 // route for payment confirmation(if using credit card)
-app.get("/api/v1/orders/:id", async (req, res) => {
-  const orderId = req.params.orderId;
+app.get("/api/v1/orders", async (req, res) => {
   try {
-    const order = await Order.findById(orderId);
-    if (!order) {
-      return res.status(404).send("Order no found");
-    }
-    res.json(order);
+    const query = {};
+    const myOrders = await Order.find(query);
+    res.status(200).json({
+      status: "success",
+      message: "Get orders successfully",
+      data: myOrders,
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error retrieving order");
+
+    res.status(500).json({
+      status: "failed",
+      message: error.message,
+    });
   }
+
+  // const orderId = req.params.orderId;
+  // try {
+  //   const order = await Order.findById(orderId);
+  //   if (!order) {
+  //     return res.status(404).send("Order no found");
+  //   }
+  //   res.json(order);
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(500).send("Error retrieving order");
+  // }
 });
 
 // post user information
