@@ -190,9 +190,14 @@ app.post("/api/v1/orders", async (req, res) => {
       return res.status(400).json({ error: "Invalid order data" }); // Handle invalid data
     }
 
+    if (newOrders.paymentOption === "COD") {
+      newOrders.status = "confirmed";
+    } else {
+      newOrders.status = "pending";
+    }
+
     // Integrate with a database or service to create the order
     const savedOrder = await newOrders.save();
-    // console.log(savedOrder);
     res.status(200).json({
       status: "success",
       message: "Order saved successfully",
@@ -309,12 +314,14 @@ app.post("/api/v1/orders", async (req, res) => {
 //   // }
 // });
 
-// route for payment confirmation(if using credit card)
+// get orders data by users email
 app.get("/api/v1/orders/:email", async (req, res) => {
   try {
     const email = req.params.email;
-    const orders = await Order.find({ email });
-    if (!orders.length) {
+    const orders = await Order.find({
+      email,
+    });
+    if (!orders?.length) {
       return res.status(404).json({
         message: "No orders found for this user",
       });
@@ -323,7 +330,7 @@ app.get("/api/v1/orders/:email", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: "Server error",
+      message: "Internal Server error",
     });
   }
 });

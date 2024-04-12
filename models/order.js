@@ -42,11 +42,17 @@ const orderSchema = new Schema({
   // },
   paymentOption: {
     type: String,
+    enum: ["COD", "creditCard"],
     required: true,
   },
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  status: {
+    type: String,
+    enum: ["pending", "paid", "confirmed", "shipped", "delivered"],
+    default: "pending",
   },
 });
 
