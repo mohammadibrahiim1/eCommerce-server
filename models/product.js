@@ -166,24 +166,24 @@ const productSchema = new mongoose.Schema(
 );
 // mongoose middlewares for saving data: pre/post
 
-productSchema.pre("save", function (next) {
-  console.log("Before saving data");
+// productSchema.pre("save", function (next) {
+//   console.log("Before saving data");
 
-  // this =>
-  if (this.rating == 0) {
-    this.status = "out-of-stock";
-  }
-  next();
-});
+//   // this =>
+//   if (this.rating == 0) {
+//     this.status = "out-of-stock";
+//   }
+//   next();
+// });
 
-productSchema.post("save", function (doc, next) {
-  console.log("After saving data");
-  next();
-});
+// productSchema.post("save", function (doc, next) {
+//   console.log("After saving data");
+//   next();
+// });
 
-productSchema.methods.logger = function () {
-  console.log(`Data saved for ${this.name}`);
-};
+// productSchema.methods.logger = function () {
+//   console.log(`Data saved for ${this.name}`);
+// };
 
 const Product = mongoose.model("Product", productSchema);
 module.exports = Product;
