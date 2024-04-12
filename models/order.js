@@ -32,14 +32,7 @@ const orderSchema = new Schema({
     required: true,
   },
   items: {},
-  // itemPrice: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // quantity: {
-  //   type: Number,
-  //   required: true,
-  // },
+
   paymentOption: {
     type: String,
     enum: ["COD", "creditCard"],
@@ -55,44 +48,6 @@ const orderSchema = new Schema({
     default: "pending",
   },
 });
-
-// const orderSchema = new Schema({
-//   name: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//   },
-//   email: {
-//     type: String,
-//   },
-//   address: {
-//     type: String,
-//   },
-//   city: {
-//     type: String,
-//   },
-//   state: {
-//     type: String,
-//   },
-//   postalCode: {
-//     type: String,
-//   },
-//   price: {
-//     type: Number,
-//   },
-//   // trans_id: {
-//   //   type: String,
-//   //   required: true,
-//   // },
-//   // product_name: {
-//   //   type: String,
-//   //   required: true,
-//   // },
-//   // product_category: {
-//   //   type: String,
-//   //   required: true,
-//   // },
-// });
 
 const Order = mongoose.model("Order", orderSchema);
 

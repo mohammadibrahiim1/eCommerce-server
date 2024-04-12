@@ -212,6 +212,26 @@ app.post("/api/v1/orders", async (req, res) => {
   }
 });
 
+app.patch("/api/v1/orders/:id", async (req, res) => {
+  const id = req.params.id;
+  const { status } = req.body;
+  try {
+    const updateStatus = await Order.findByIdAndUpdate(
+      id,
+      {
+        status: status,
+      },
+      {
+        new: true,
+      }
+    );
+    res.json(updateStatus);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // post order data
 // app.post("/api/v1/orders", async (req, res, next) => {
 //   // console.log(req.body.price);
@@ -331,6 +351,25 @@ app.get("/api/v1/orders/:email", async (req, res) => {
     console.error(error);
     res.status(500).json({
       message: "Internal Server error",
+    });
+  }
+});
+
+app.get("/api/v2/orders/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) };
+    const order = await Order.findById(query);
+    if (!order) {
+      return res.status(404).json({
+        message: "Order not found",
+      });
+    }
+    res.send(order);
+    console.log(order);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
     });
   }
 });
