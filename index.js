@@ -15,6 +15,7 @@ console.log(stripe);
 const port = process.env.PORT || 5000;
 
 const Product = require("./models/product");
+const Products = require("./models/newProducts");
 const Category = require("./models/category");
 const Brand = require("./models/brand");
 const Order = require("./models/order");
@@ -79,6 +80,37 @@ app.post("/api/v1/products", async (req, res, next) => {
     console.log(error);
   }
 });
+
+// app.post("/api/v1/newProducts", async (req, res, next) => {
+//   try {
+//     const result = await Products.insertMany(req.body);
+//     // const result = await product.save();
+
+//     // Check if result is an object with a logger function
+//     if (typeof result === "object" && typeof result.logger === "function") {
+//       // Call the logger function
+//       result.logger();
+//     } else {
+//       console.error(
+//         "result.logger is not a function or result is not an object with a logger function"
+//       );
+//     }
+
+//     // await result.logger();
+//     res.status(200).json({
+//       status: "success",
+//       message: "Data inserted successfully",
+//       data: result,
+//     });
+//   } catch (error) {
+//     res.status(400).json({
+//       status: "failed",
+//       message: "Data is not inserted",
+//       error: error.message,
+//     });
+//     console.log(error);
+//   }
+// });
 
 // post brands data to mongodb database
 app.post("/api/v1/brands", async (req, res, next) => {
