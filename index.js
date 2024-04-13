@@ -20,6 +20,7 @@ const Category = require("./models/category");
 const Brand = require("./models/brand");
 const Order = require("./models/order");
 const User = require("./models/user");
+const Payment = require("./models/payment");
 // const Order = require("./models/brand");
 
 // ssl commerz payment gateway
@@ -366,12 +367,55 @@ app.get("/api/v2/orders/:id", async (req, res) => {
       });
     }
     res.send(order);
-    console.log(order);
+    // console.log(order);
   } catch (error) {
     res.status(500).json({
       message: error.message,
     });
   }
+});
+
+// stripe payment
+app.post("/api/v1/create-payment-intent", async (req, res) => {
+  const { price } = req.body;
+  const amount = price * 100;
+  try {
+    // create a payment intent with stripe
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "usd",
+      payment_method_types: ["card"],
+    });
+
+    res.status(200).json({
+      paymentIntent,
+      client_secret: paymentIntent.client_secret,
+    });
+    console.log(paymentIntent);
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+});
+
+// when user click on pay button then  store payments information in  collection in database
+app.post("/api/v1/payment", async (req, res) => {
+  const payment = req.body;
+
+  const result = new Payment(payment);
+
+  try {
+    await result.save();
+    res.status(201).json("payment saved successfully");
+    console.log(result);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+
+  // ================
 });
 
 // post user information
