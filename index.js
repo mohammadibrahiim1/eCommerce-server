@@ -403,16 +403,43 @@ app.post("/api/v1/create-payment-intent", async (req, res) => {
 // when user click on pay button then  store payments information in  collection in database
 app.post("/api/v1/payment", async (req, res) => {
   const payment = req.body;
-
   const result = new Payment(payment);
 
   try {
-    await result.save();
-    res.status(201).json("payment saved successfully");
+    const savedPayment = await result.save();
+
+    const updatedDoc = await Order.findByIdAndUpdate(
+      payment.orderId,
+      {
+        $set: { status: "paid" },
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (!updatedDoc) {
+      return res.status(404).json({
+        error: "Order not found",
+      });
+    }
+
+    // const updatedDoc = {
+    //   $set: {
+    //     paid: true,
+    //     transactionId: payment.transactionId,
+    //   },
+    // };
+    // await Payment.findByIdAndUpdate(filter, updatedDoc);
+
+    res.status(201).json({
+      message: "payment saved and order successfully",
+      payment: updatedDoc,
+    });
     console.log(result);
   } catch (error) {
     res.status(500).json({
-      message: error.message,
+      error: "Failed to save payment",
     });
   }
 
