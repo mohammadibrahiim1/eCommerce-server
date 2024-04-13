@@ -47,6 +47,11 @@ const orderSchema = new Schema({
     enum: ["pending", "paid", "confirmed", "shipped", "delivered"],
     default: "pending",
   },
+  paymentStatus: {
+    type: String,
+    // enum: ["pending", "paid", "confirmed", "shipped", "delivered"],
+    default: null,
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);

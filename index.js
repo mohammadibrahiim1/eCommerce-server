@@ -406,13 +406,14 @@ app.post("/api/v1/payment", async (req, res) => {
   const result = new Payment(payment);
 
   try {
-    const savedPayment = await result.save();
+    await result.save();
 
     const updatedDoc = await Order.findByIdAndUpdate(
       payment.orderId,
       {
-        $set: { status: "paid" },
+        $set: { status: "completed", paymentStatus: "paid" },
       },
+
       {
         new: true,
       }
@@ -424,14 +425,6 @@ app.post("/api/v1/payment", async (req, res) => {
       });
     }
 
-    // const updatedDoc = {
-    //   $set: {
-    //     paid: true,
-    //     transactionId: payment.transactionId,
-    //   },
-    // };
-    // await Payment.findByIdAndUpdate(filter, updatedDoc);
-
     res.status(201).json({
       message: "payment saved and order successfully",
       payment: updatedDoc,
@@ -442,8 +435,6 @@ app.post("/api/v1/payment", async (req, res) => {
       error: "Failed to save payment",
     });
   }
-
-  // ================
 });
 
 // post user information
