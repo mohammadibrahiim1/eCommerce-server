@@ -375,21 +375,22 @@ app.get("/api/v2/orders/:id", async (req, res) => {
   }
 });
 
-// stripe payment
+// stripe payment intent
 app.post("/api/v1/create-payment-intent", async (req, res) => {
-  const { price } = req.body;
+  const order = req.body;
+  const price = order.price;
   const amount = price * 100;
+
   try {
     // create a payment intent with stripe
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount,
       currency: "usd",
+      amount: amount,
       payment_method_types: ["card"],
     });
 
     res.status(200).json({
-      paymentIntent,
-      client_secret: paymentIntent.client_secret,
+      clientSecret: paymentIntent.client_secret,
     });
     console.log(paymentIntent);
   } catch (error) {
