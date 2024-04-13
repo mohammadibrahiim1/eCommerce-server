@@ -24,9 +24,9 @@ const Payment = require("./models/payment");
 // const Order = require("./models/brand");
 
 // ssl commerz payment gateway
-const store_id = process.env.STORE_ID;
-const store_passwd = process.env.STORE_PASSWORD;
-const is_live = false; //true for live, false for sandbox
+// const store_id = process.env.STORE_ID;
+// const store_passwd = process.env.STORE_PASSWORD;
+// const is_live = false; //true for live, false for sandbox
 
 // connect to mongodb
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.wuwpwwx.mongodb.net/?retryWrites=true&w=majority`;
@@ -82,54 +82,11 @@ app.post("/api/v1/products", async (req, res, next) => {
   }
 });
 
-// app.post("/api/v1/newProducts", async (req, res, next) => {
-//   try {
-//     const result = await Products.insertMany(req.body);
-//     // const result = await product.save();
-
-//     // Check if result is an object with a logger function
-//     if (typeof result === "object" && typeof result.logger === "function") {
-//       // Call the logger function
-//       result.logger();
-//     } else {
-//       console.error(
-//         "result.logger is not a function or result is not an object with a logger function"
-//       );
-//     }
-
-//     // await result.logger();
-//     res.status(200).json({
-//       status: "success",
-//       message: "Data inserted successfully",
-//       data: result,
-//     });
-//   } catch (error) {
-//     res.status(400).json({
-//       status: "failed",
-//       message: "Data is not inserted",
-//       error: error.message,
-//     });
-//     console.log(error);
-//   }
-// });
-
 // post brands data to mongodb database
 app.post("/api/v1/brands", async (req, res, next) => {
   try {
     const result = await Brand.insertMany(req.body);
-    // const result = await product.save();
 
-    // Check if result is an object with a logger function
-    // if (typeof result === "object" && typeof result.logger === "function") {
-    //   // Call the logger function
-    //   result.logger();
-    // } else {
-    //   console.error(
-    //     "result.logger is not a function or result is not an object with a logger function"
-    //   );
-    // }
-
-    // await result.logger();
     res.status(200).json({
       status: "success",
       message: "Data inserted successfully",
@@ -149,7 +106,6 @@ app.post("/api/v1/brands", async (req, res, next) => {
 app.post("/api/v1/categories", async (req, res, next) => {
   try {
     const result = await Category.insertMany(req.body);
-    // const result = await product.save();
 
     // Check if result is an object with a logger function
     if (typeof result === "object" && typeof result.logger === "function") {
@@ -177,9 +133,7 @@ app.post("/api/v1/categories", async (req, res, next) => {
   }
 });
 
-const trans_id = new ObjectId().toString();
-
-// post order data
+// post MyOrder data
 app.post("/api/v1/orders", async (req, res) => {
   try {
     // Access order data from request body
@@ -233,108 +187,6 @@ app.patch("/api/v1/orders/:id", async (req, res) => {
   }
 });
 
-// post order data
-// app.post("/api/v1/orders", async (req, res, next) => {
-//   // console.log(req.body.price);
-
-//   const orderData = req.body;
-
-//   // COD OR CREDIT CARD
-//   const { paymentMethod } = orderData;
-
-//   try {
-//     await new Order.insertMany(orderData);
-
-//     if (paymentMethod === "COD") {
-//       // no payment confirmation needed for cod
-//       res.status(201).json({
-//         message: "Order placed successfully",
-//       });
-//     } else {
-//       // redirect to payment proccessing
-//       const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
-//       sslcz.init(data).then((apiResponse) => {
-//         // Redirect the user to payment gateway
-//         let GatewayPageURL = apiResponse.GatewayPageURL;
-//         res.send({ url: GatewayPageURL });
-//         // res.redirect(GatewayPageURL);
-//         console.log("Redirecting to: ", GatewayPageURL);
-//       });
-//     }
-//   } catch (error) {}
-
-//   // const data = {
-//   //   total_amount: order.price,
-//   //   currency: "USD",
-//   //   tran_id: trans_id, // use unique tran_id for each api call
-//   //   success_url: "http://localhost:3030/success",
-//   //   fail_url: "http://localhost:3030/fail",
-//   //   cancel_url: "http://localhost:3030/cancel",
-//   //   ipn_url: "http://localhost:3030/ipn",
-//   //   shipping_method: "Courier",
-//   //   product_name: "Computer.",
-//   //   product_category: "Electronic",
-//   //   product_profile: "general",
-//   //   cus_name: order.userName,
-//   //   cus_email: order.userEmail,
-//   //   cus_add1: order.address,
-//   //   cus_add2: "Dhaka",
-//   //   cus_city: order.city,
-//   //   cus_state: order.state,
-//   //   cus_postcode: order.postalCode,
-//   //   cus_country: "Bangladesh",
-//   //   cus_phone: "01711111111",
-//   //   cus_fax: "01711111111",
-//   //   ship_name: "Customer Name",
-//   //   ship_add1: "Dhaka",
-//   //   ship_add2: "Dhaka",
-//   //   ship_city: "Dhaka",
-//   //   ship_state: "Dhaka",
-//   //   ship_postcode: 1000,
-//   //   ship_country: "Bangladesh",
-//   // };
-
-//   // console.log(data);
-
-//   // const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
-//   // sslcz.init(data).then((apiResponse) => {
-//   //   // Redirect the user to payment gateway
-//   //   let GatewayPageURL = apiResponse.GatewayPageURL;
-//   //   res.send({ url: GatewayPageURL });
-//   //   // res.redirect(GatewayPageURL);
-//   //   console.log("Redirecting to: ", GatewayPageURL);
-//   // });
-
-//   // try {
-//   //   const result = await Order.insertMany(req.body);
-//   //   // const result = await product.save();
-
-//   //   // Check if result is an object with a logger function
-//   //   if (typeof result === "object" && typeof result.logger === "function") {
-//   //     // Call the logger function
-//   //     result.logger();
-//   //   } else {
-//   //     console.error(
-//   //       "result.logger is not a function or result is not an object with a logger function"
-//   //     );
-//   //   }
-
-//   //   // await result.logger();
-//   //   res.status(200).json({
-//   //     status: "success",
-//   //     message: "Data inserted successfully",
-//   //     data: result,
-//   //   });
-//   // } catch (error) {
-//   //   res.status(400).json({
-//   //     status: "failed",
-//   //     message: "Data is not inserted",
-//   //     error: error.message,
-//   //   });
-//   //   console.log(error);
-//   // }
-// });
-
 // get orders data by users email
 app.get("/api/v1/orders/:email", async (req, res) => {
   try {
@@ -355,7 +207,6 @@ app.get("/api/v1/orders/:email", async (req, res) => {
     });
   }
 });
-
 app.get("/api/v2/orders/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -459,7 +310,6 @@ app.get("/api/v1/products", async (req, res) => {
     const { category, brand } = req.query;
 
     // Apply filtering based on query parameters
-
     if (category && brand) {
       // both category and brand filters are applied
       const filteredItems = await Product.find({ category, brand });
@@ -487,10 +337,6 @@ app.get("/api/v1/products", async (req, res) => {
     } else {
       const query = {};
       const products = await Product.find(query);
-      // .where("name")
-      //   .equals(/\w/)
-      //   .where("quantity")
-      //   .gt(100);
       res.status(200).json({
         status: "success",
         message: "Get data successfully",
@@ -520,10 +366,6 @@ app.get("/api/v1/categories", async (req, res) => {
   try {
     const query = {};
     const products = await Category.find(query);
-    // .where("name")
-    //   .equals(/\w/)
-    //   .where("quantity")
-    //   .gt(100);
     res.status(200).json({
       status: "success",
       message: "Get data successfully",
@@ -544,10 +386,6 @@ app.get("/api/v1/brands", async (req, res) => {
   try {
     const query = {};
     const brands = await Brand.find(query);
-    // .where("name")
-    //   .equals(/\w/)
-    //   .where("quantity")
-    //   .gt(100);
     res.status(200).json({
       status: "success",
       message: "Get data successfully",
@@ -562,24 +400,6 @@ app.get("/api/v1/brands", async (req, res) => {
     console.log(error);
   }
 });
-
-// payment with stripe
-// app.post("/create-payment-intent", async (req, res) => {
-//   const { price } = req.body;
-//   const amount = parseInt(price * 100);
-//   console.log(amount);
-
-//   // Create a PaymentIntent with the order amount and currency
-//   const paymentIntent = await stripe.paymentIntents.create({
-//     amount: amount,
-//     currency: "usd",
-//     payment_methods_types: ["card"]
-//   });
-
-//   res.send({
-//     clientSecret: paymentIntent.client_secret,
-//   });
-// });
 
 app.get("/", (req, res) => {
   res.send("e-commerce website is working");
