@@ -193,7 +193,7 @@ app.get("/api/v1/orders/:email", async (req, res) => {
     const email = req.params.email;
     const orders = await Order.find({
       email,
-    });
+    }).sort({ _id: -1 });
     if (!orders?.length) {
       return res.status(404).json({
         message: "No orders found for this user",
@@ -207,6 +207,8 @@ app.get("/api/v1/orders/:email", async (req, res) => {
     });
   }
 });
+
+// get order data by id
 app.get("/api/v2/orders/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -264,7 +266,6 @@ app.post("/api/v1/payment", async (req, res) => {
       {
         $set: { status: "completed", paymentStatus: "paid" },
       },
-
       {
         new: true,
       }
