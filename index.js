@@ -307,43 +307,34 @@ app.post("/api/v1/user", async (req, res, next) => {
 
 // get products by category and when there is no category get all products
 app.get("/api/v1/products", async (req, res) => {
+  const { search, category, brand } = req.query;
   try {
-    const { category, brand } = req.query;
+    let result;
+    let query = {};
+
+    if (search) {
+      const searchTerm = new RegExp(search, "i");
+      query = {
+        $or: [
+          {
+            category: searchTerm,
+          },
+          { brand: searchTerm },
+          { name: searchTerm },
+        ],
+      };
+    }
 
     // Apply filtering based on query parameters
-    if (category && brand) {
-      // both category and brand filters are applied
-      const filteredItems = await Product.find({ category, brand });
-      res.status(200).json({
-        status: "success",
-        message: "Get data successfully",
-        data: filteredItems,
-      });
-    } else if (category) {
-      //  category  filters are applied
-      const filteredItems = await Product.find({ category });
-      res.status(200).json({
-        status: "success",
-        message: "Get data successfully",
-        data: filteredItems,
-      });
-    } else if (brand) {
-      //  brands  filters are applied
-      const filteredItems = await Product.find({ brand });
-      res.status(200).json({
-        status: "success",
-        message: "Get data successfully",
-        data: filteredItems,
-      });
-    } else {
-      const query = {};
-      const products = await Product.find(query);
-      res.status(200).json({
-        status: "success",
-        message: "Get data successfully",
-        data: products,
-      });
+    if (category) {
+      query.category = category;
     }
+    if (brand) {
+      query.brand = brand;
+    }
+
+    result = await Product.find(query);
+    res.json(result);
   } catch (error) {
     res.status(400).json({
       status: "failed",
