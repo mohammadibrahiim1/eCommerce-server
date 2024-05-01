@@ -307,60 +307,27 @@ app.post("/api/v1/user", async (req, res, next) => {
 
 // get products by category and when there is no category get all products
 app.get("/api/v1/products", async (req, res) => {
-  const query = {};
+  const { category, brand } = req.body;
   try {
+    let query = {};
+    if (category) {
+      query.category = category;
+    }
+    if (brand) {
+      query.brand = brand;
+    }
     const result = await Product.find(query);
-    // res.send(result);
     res.status(200).json({
       status: "success",
       message: "Get data successfully",
       products: result,
     });
-    // console.log(result);
   } catch (error) {
     console.log(error);
-    res.json({
-      status: "failed",
-      message: error.message,
+    res.status(500).json({
+      message: "Error fetching products",
     });
   }
-
-  // const { search, category, brand } = req.query;
-  // try {
-  //   let result;
-  //   let query = {};
-
-  //   if (search) {
-  //     const searchTerm = new RegExp(search, "i");
-  //     query = {
-  //       $or: [
-  //         {
-  //           category: searchTerm,
-  //         },
-  //         { brand: searchTerm },
-  //         { name: searchTerm },
-  //       ],
-  //     };
-  //   }
-
-  //   // Apply filtering based on query parameters
-  //   if (category) {
-  //     query.category = category;
-  //   }
-  //   if (brand) {
-  //     query.brand = brand;
-  //   }
-
-  //   result = await Product.find(query);
-  //   res.json(result);
-  // } catch (error) {
-  //   res.status(400).json({
-  //     status: "failed",
-  //     message: "Can't get data",
-  //     error: error.message,
-  //   });
-  //   console.log(error);
-  // }
 });
 
 // get products by id
