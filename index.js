@@ -320,32 +320,15 @@ app.get("/api/v1/products", async (req, res) => {
     } else {
       products = await Product.find(); // Fetch all products if no filters specified
     }
-    res.json(products);
+    res.status(200).json({
+      status: "success",
+      message: 'get products data successfully',
+      products: products,
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: "Server Error" });
   }
-  // const { category, brand } = req.body;
-  // try {
-  //   let query = {};
-  //   if (category) {
-  //     query.category = category;
-  //   }
-  //   if (brand) {
-  //     query.brand = brand;
-  //   }
-  //   const result = await Product.find(query);
-  //   res.status(200).json({
-  //     status: "success",
-  //     message: "Get data successfully",
-  //     products: result,
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(500).json({
-  //     message: "Error fetching products",
-  //   });
-  // }
 });
 
 // get products by id
