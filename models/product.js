@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     require: true,
   },
-  discountPercentage: {
+  discount_percentage: {
     type: Number,
     require: true,
   },
@@ -26,6 +26,10 @@ const productSchema = new mongoose.Schema({
     require: true,
   },
   brand: {
+    type: String,
+    require: true,
+  },
+  sub_category: {
     type: String,
     require: true,
   },

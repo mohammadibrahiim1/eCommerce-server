@@ -15,7 +15,6 @@ console.log(stripe);
 const port = process.env.PORT || 5000;
 
 const Product = require("./models/product");
-const Products = require("./models/newProducts");
 const Category = require("./models/category");
 const Brand = require("./models/brand");
 const Order = require("./models/order");
@@ -307,27 +306,46 @@ app.post("/api/v1/user", async (req, res, next) => {
 
 // get products by category and when there is no category get all products
 app.get("/api/v1/products", async (req, res) => {
-  const { category, brand } = req.body;
+  const category = req.query.category;
+  const brand = req.query.brand;
+
   try {
-    let query = {};
-    if (category) {
-      query.category = category;
+    let products;
+    if (category && brand) {
+      products = await Product.find({ category, brand });
+    } else if (category) {
+      products = await Product.find({ category });
+    } else if (brand) {
+      products = await Product.find({ brand });
+    } else {
+      products = await Product.find(); // Fetch all products if no filters specified
     }
-    if (brand) {
-      query.brand = brand;
-    }
-    const result = await Product.find(query);
-    res.status(200).json({
-      status: "success",
-      message: "Get data successfully",
-      products: result,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Error fetching products",
-    });
+    res.json(products);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
   }
+  // const { category, brand } = req.body;
+  // try {
+  //   let query = {};
+  //   if (category) {
+  //     query.category = category;
+  //   }
+  //   if (brand) {
+  //     query.brand = brand;
+  //   }
+  //   const result = await Product.find(query);
+  //   res.status(200).json({
+  //     status: "success",
+  //     message: "Get data successfully",
+  //     products: result,
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(500).json({
+  //     message: "Error fetching products",
+  //   });
+  // }
 });
 
 // get products by id
