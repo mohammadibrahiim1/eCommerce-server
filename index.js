@@ -308,21 +308,27 @@ app.post("/api/v1/user", async (req, res, next) => {
 app.get("/api/v1/products", async (req, res) => {
   const category = req.query.category;
   const brand = req.query.brand;
+  const sort = req.query.sort;
 
   try {
     let products;
+
     if (category && brand) {
       products = await Product.find({ category, brand });
     } else if (category) {
       products = await Product.find({ category });
     } else if (brand) {
       products = await Product.find({ brand });
+    } else if (sort === "high") {
+      products = await Product.find({ price: 1 });
+    } else if (sort === "low") {
+      products = await Product.find({ price: -1 });
     } else {
       products = await Product.find(); // Fetch all products if no filters specified
     }
     res.status(200).json({
       status: "success",
-      message: 'get products data successfully',
+      message: "get products data successfully",
       products: products,
     });
   } catch (err) {
