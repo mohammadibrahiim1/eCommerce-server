@@ -1,0 +1,8 @@
+[
+  { "icon": "", "title": "Electronics", "slug": "electronics" },
+  { "icon": "", "title": "Furniture", "slug": "furniture" },
+  { "icon": "", "title": "Beauty products", "slug": "beauty_products" },
+  { "icon": "", "title": "Fashion", "slug": "fashion" },
+  { "icon": "", "title": "Beverage", "slug": "beverage" },
+  { "icon": "", "title": "Health & hygiene", "slug": "health_hygiene" }
+]

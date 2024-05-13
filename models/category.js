@@ -1,43 +1,11 @@
 const { mongoose } = require("mongoose");
 
-const childSubCategory = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-  },
-});
-const childCategory = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-  },
-
-  subCategories: [childSubCategory],
-});
-
-const subCategory = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-  },
-
-  subCategories: [childCategory],
-});
-
 const categorySchema = new mongoose.Schema({
-  name: {
+  icon: {
+    type: String,
+    required: true,
+  },
+  title: {
     type: String,
     required: true,
   },
@@ -45,7 +13,6 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  subCategories: [subCategory],
 });
 
 // mongoose middlewares for saving data: pre/post

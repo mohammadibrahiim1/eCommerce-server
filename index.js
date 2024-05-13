@@ -306,34 +306,27 @@ app.post("/api/v1/user", async (req, res, next) => {
 
 // get products by category and when there is no category get all products
 app.get("/api/v1/products", async (req, res) => {
-  const category = req.query.category;
-  const brand = req.query.brand;
-  const sort = req.query.sort;
-
+  const { category } = req.query;
+  let query = {};
   try {
-    let products;
-
-    if (category && brand) {
-      products = await Product.find({ category, brand });
-    } else if (category) {
-      products = await Product.find({ category });
-    } else if (brand) {
-      products = await Product.find({ brand });
-    } else if (sort === "high") {
-      products = await Product.find({ price: 1 });
-    } else if (sort === "low") {
-      products = await Product.find({ price: -1 });
-    } else {
-      products = await Product.find(); // Fetch all products if no filters specified
+    if (category) {
+      query = { category: category };
     }
-    res.status(200).json({
+    const result = await Product.find(query);
+    res.status(200).send({
       status: "success",
-      message: "get products data successfully",
-      products: products,
+      message: "Get all data successfully",
+      result: result.length,
+      data: result,
     });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ message: "Server Error" });
+
+    // const result = await Product.find(query);
+  } catch (error) {
+    res.status(502).json({
+      status: "failed",
+      message: "Can't get data",
+      error: error.message,
+    });
   }
 });
 
@@ -349,11 +342,11 @@ app.get("/api/v1/products/:id", async (req, res) => {
 app.get("/api/v1/categories", async (req, res) => {
   try {
     const query = {};
-    const products = await Category.find(query);
+    const result = await Category.find(query);
     res.status(200).json({
       status: "success",
-      message: "Get data successfully",
-      data: products,
+      message: "Get categories data successfully",
+      data: result,
     });
   } catch (error) {
     res.status(400).json({
