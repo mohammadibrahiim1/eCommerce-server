@@ -306,27 +306,19 @@ app.post("/api/v1/user", async (req, res, next) => {
 
 // get products by category and when there is no category get all products
 app.get("/api/v1/products", async (req, res) => {
-  const { category } = req.query;
+  const { category, sub_category } = req.query;
+  // const { sub_category } = req.query;
   let query = {};
   try {
-    if (category) {
-      query = { category: category };
-    }
-    const result = await Product.find(query);
-    res.status(200).send({
-      status: "success",
-      message: "Get all data successfully",
-      result: result.length,
-      data: result,
-    });
+    let query = {};
+    if (category) query.category = category;
+    if (sub_category) query.sub_category = sub_category;
 
-    // const result = await Product.find(query);
+    const products = await Product.find(query);
+    res.json(products);
   } catch (error) {
-    res.status(502).json({
-      status: "failed",
-      message: "Can't get data",
-      error: error.message,
-    });
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
