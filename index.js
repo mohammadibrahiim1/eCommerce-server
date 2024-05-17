@@ -308,9 +308,9 @@ app.post("/api/v1/user", async (req, res, next) => {
 app.get("/api/v1/products", async (req, res) => {
   const { category, sub_category } = req.query;
   // const { sub_category } = req.query;
+
   let query = {};
   try {
-    let query = {};
     if (category) query.category = category;
     if (sub_category) query.sub_category = sub_category;
 
