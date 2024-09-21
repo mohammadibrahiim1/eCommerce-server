@@ -376,5 +376,5 @@ app.get("/", (req, res) => {
 
 // start the server
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`.blue);
+  console.log(`Hat bazar Server listening on port ${port}`.blue);
 });
